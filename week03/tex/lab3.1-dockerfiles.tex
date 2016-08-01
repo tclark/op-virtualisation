@@ -74,7 +74,7 @@ ENV APACHE_LOG_DIR /var/log/apache2
 
 \texttt{ENV} commands populate environment variables inside the container with values. This is a common way to pass configuration information to services running inside them.
 
-\texttt{ADD index.html /var/www/html/index,html}
+\texttt{ADD index.html /var/www/html/index.html }
 
 This command will take a file named \texttt{index.html} from your build context and place a copy at the location specified inside the container. If the first argument to \texttt{ADD} is a directory, indicated by a trailing slash, then it will add the directory and its contents.
 
@@ -96,7 +96,7 @@ Don't forget to commit and push your changes.
 \section{Build your image}
 From within your build context directory, build your new image with the command
 
-\texttt{docker build -t=``your-username/lab3.1''}
+\texttt{docker build -t=``your-username/lab3.1'' .}
 
 Once this completes successfully, you can run a container based on this image with the \texttt{docker run} command and see your web page if you visit your server with a browser. If you make any changes  to your build context you will need to rebuild the image, but this will not affect any containers built from older versions of the image.
 
