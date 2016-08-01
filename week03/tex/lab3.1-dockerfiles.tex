@@ -70,6 +70,9 @@ RUN apt-get -yq install apache2
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/run/apache
+ENV APACHE_PID_FILE /var/run/apache/httpd.pid
+RUN mkdir /var/run/apache
 \end{verbatim}
 
 \texttt{ENV} commands populate environment variables inside the container with values. This is a common way to pass configuration information to services running inside them.
@@ -84,7 +87,7 @@ This will cause our container to open port 80 on the host system.  Note that thi
 
 \begin{verbatim}
 ENTRYPOINT ["/usr/sbin/apache2"]
-CMD["-D", "FOREGROUND"]
+CMD["-DFOREGROUND"]
 \end{verbatim}
 
 Recall that Docker containers typically run one main process.  The \texttt{ENTRYPOINT} specifies the command to run inside the container to start that process. The following \texttt{CMD} provides arguments to the \texttt{ENTRYPOINT}'s command.
