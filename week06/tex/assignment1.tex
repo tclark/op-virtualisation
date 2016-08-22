@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Assignment 1: Containers\\ IN720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+In this assignment you will deploy a web site using three Docker containers:
+
+\begin{enumerate}
+  \item A dynamic web application written in Python;
+  \item An nginx web server configured to serve static resources;
+  \item A front end reverse proxy server also using nginx.
+  \end{enumerate}
+  
+  
+  
+ You will use consul to register and advertise your Python and static web server. Your front end proxy server will connect to those servers using addresses obtained from consul. Code and configuration information for the nodes will be provided, but you will need to configure, build, and launch the containers and demonstrate the running web site.
+ 
+ Three virtual hosts will be provided that on which you will set up and demonstrate your web site.
+
+\section{Consul setup}
+On each of your virtual hosts, load and run a container to run the \texttt{consul} agent in the same way that we did in the week 5 labs.
+
+\section{Static web server}
+On one of your virtual hosts, set up a container that uses the nginx web server to serve static files. A sample nginx configuration file and an image file are available in the \texttt{week06/assignment1\_resources} directory on GitHub.
+
+On your consul agent container on this host, create a \emph{service definition} as outlined at \url{https://www.consul.io/intro/getting-started/services.html}
+
+\section{Flask  server}
+On a second virtual host, set up a container that serves a simple Flask application, similar to the one we created in the Docker Compose lab.  Python code for the application is available in the resources directory. Use the uwsgi plugin to register the service with consul in the same way that we did in the consul labs.
+
+\section{Nginx frontend}
+On the third virtual host set up another container that runs nginx.  This will be the entry point for our web site and will proxy web requests to the appropriate back end server to fulfil requests. Note that this service will not be registered with consul, but it will use consul's DNS query API to locate the back end services. The requisite nginx configuration is in the resources directory.
+
+\section{Submission and marking} 
+
+This assignment is worth 25\% and it is due at the beginning of class on Tuesday, 13 September. It will be marked according to the following criteria:
+
+\subsection{System operation and setup}
+Your servers will be inspected to verify that the web site operates correctly (25 marks) and that the containers are set up in accordance with the assignment instructions (25 marks).
+
+\subsection{Project files}
+Organise your project files (Docker build contexts, consul service configuration) into a GitHub repository named \texttt{in720-assignment1} and send a link to the lecturer. These files will be examined for
+
+\begin{itemize}
+  \item Organisation (10 marks)
+  \item Technical correctness (20 marks)
+  \item Clarity, efficiency, adherence to good practices (20 marks)
+  \end{itemize}
+  
+  Be sure that your files are pushed to your \texttt{master} branch on your GitHub repository on or before the dues date and time. 
+ 
+\end{document}
