@@ -1,0 +1,119 @@
+% Beamer slide template prepared by Tom Clark <tom.clark@op.ac.nz>
+% Otago Polytechnic
+% Dec 2012
+
+\documentclass[10pt]{beamer}
+\usetheme{Dunedin}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\newcommand\codeHighlight[1]{\textcolor[rgb]{1,0,0}{\textbf{#1}}}
+
+\title{Introduction to Public Cloud Services}
+
+\author[I720]{Virtualisation}
+\institute[Otago Polytechnic]{
+  Otago Polytechnic \\
+  Dunedin, New Zealand \\
+}
+\date{}
+\begin{document}
+
+%----------- titlepage ----------------------------------------------%
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Things we do in the server room}
+  
+  \begin{itemize}
+    \item Web sites
+    \item Email
+    \item File services
+    \item Directory services
+    \item Compute farms
+    \item etc.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The old way}
+  
+  \begin{itemize}
+    \item Set up a server room
+    \item Order servers
+    \item Rack servers
+    \item Configure servers
+    \item Run servers
+    \item Maintain all of the above 
+  \end{itemize}
+  
+  Associated time scale: weeks
+  
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{The new way}
+  
+  \begin{itemize}
+    \item Set up an account with a cloud provider
+    \item Start servers
+    \item Run servers
+  \end{itemize}
+  
+  Associated time scale: minutes
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{What does a public cloud provider do?}
+  
+  A public cloud provider supplies us with
+  
+  \begin{itemize}
+    \item Compute
+    \item Storage
+    \item Network
+  \end{itemize}
+  
+  resources on an on-demand basis.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{What are some advantages to using a public cloud?}
+
+  Compared to ``the old way'', cloud providers offer advantages in terms of 
+  
+	\begin{itemize}
+    	\item Money
+    	\item Time
+    	\item Space
+	    \item Location
+	    \item Elastic scalability
+  	\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Alternative classification of cloud services}
+  
+  Sometime we describe cloud services in terms of \emph{X as a Service} (Xaas)
+  
+  \begin{itemize}
+    \item SaaS (Software as a Service)
+    \item PaaS (Platform as a Service)
+    \item IaaS (Infrastructure as a Service)
+    \item AaaS (API as a Service)
+    \item ...and so on
+  \end{itemize}
+  
+  Can we think of examples of these or of other XaaS types?
+\end{frame}
+
+
+\end{document}
