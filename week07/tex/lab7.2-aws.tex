@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{AWS\\ IN720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+\emph{Amazon Web Services} (AWS) are probably the leading (although not the only) public cloud services today. In this lab we will use AWS' EC2 service to launch a simple web site.
+
+\section{Launch an EC2 instance}
+
+Carry out the following procedure to launch your Amazon EC2 instance:
+
+\begin{enumerate}
+
+\item Sign into the AWS web console at \url{https://355631893594.signin.aws.amazon.com/console} using credentials given to you by the lecturer.
+
+\item From the services menu, select EC2.
+
+\item Set your region to US West (Northern California) at the top right of the page. Then click ``Launch Instance''.
+
+\item From the image selection menu, choose Ubuntu 14.04.
+
+\item From the instance type menu, choose t2.micro.  Click next.
+
+\item At the instance details page, keep the defaults. Click next.
+
+\item From the storage screen, keep the default root volume.
+
+\item At the tagging screen, set a tag with key ``Name''. Use your surname as the value.  Click next.
+
+\item At the security group page, create a new group. Create firewall rules that allow SSH and HTTP access from anywhere. Click Review and Launch.
+
+\item Review the settings and click launch.  You'll be prompted to choose a key pair. Create a new key at this stage and download the key file.
+
+\item As your instance launches, find its entry in the instance list and note its public IP when it becomes available.
+
+\end{enumerate}
+
+\newpage
+
+\section{Log into your instance}
+Using your key file, ssh into your instance. The username is \texttt{ubuntu}. The process for logging in varies with your operating system and ssh client.  For example, on Linux or OS X, open a terminal window and enter
+
+\begin{verbatim}
+  ssh -i <key file name> ubuntu@<ip address>
+\end{verbatim}
+
+Once you log into your server, use apt to apply updates and install the \texttt{apache2} package.  Then verify that you can see the default web page by visiting your instance's ip address with a browser.
+
+\section{Wrapping up}
+Once you complete the lab, stop your server from the AWS control panel.
+\end{document}
