@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{The AWS CLI\\ IN720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+In the last lab we were introduced to AWS and used the web interface to launch an EC2 instance. In this lab we will see how to configure and use the AWS command line tools.
+
+
+\section{Configure the CLI}
+The AWS CLI tools are written in Python and are installable via \texttt{pip}. These have already been installed on a system for you to use for this lab.  You will need to configure the CLI with your settings.
+
+To do this, obtain your \emph{Access Key ID} and \emph{Secret Access Key} from the lecturer. Then you can configure the CLI with the command
+
+\texttt{aws configure}
+
+You will be prompted for your key information and for your \emph{default region}, which you should set to ``\texttt{us-west-1}''. Finally, set your default output to ``text''.  Other choices for output are ``json'' and ``table''.
+
+You can change these settings by re-running \texttt{aws configure} or by editing your settings in \texttt{\textasciitilde/.aws/config}.
+
+\section{Configure security settings}
+Before we can launch our EC2 instance, we need to configure a \emph{Security Group} and a \emph{Key Pair}.
+
+A Security Group is basically a set of firewall rules that we can apply to instances. Create a groups with the command
+
+\begin{verbatim}
+aws ec2 create-security-group --group-name your-name-sg --description "SG for lab 8.1"
+\end{verbatim}
+
+Note the group id value that is returned.
+
+Next, add a rule allowing ssh access with the command
+
+\begin{verbatim}
+aws ec2 authorize-security-group-ingress --group-name your-name-sg --protocol tcp \
+--port 22 --cidr 0.0.0.0/0
+\end{verbatim}
+
+Now, when we create new EC2 instances, we can use this Security Group.
+
+In order to ssh into an instance, we'll need to create an encryption key pair and download the associated key file. Do this with the command
+
+\begin{verbatim}
+aws ec2 create-key-pair --key-name your-name-key \
+--query 'KeyMaterial' --output text > your-name-key.pem
+\end{verbatim}
+
+This will save the key file in \texttt{your-name-key.pem} (You should substitute in your own name.) You will need to set the permissions of the key file to \texttt{0400}.
+
+\section{Launch instance}
+Now we can launch a new EC2 instance with the command
+
+\begin{verbatim}
+aws ec2 run-instances --image-id ami-d732f0b7 --security-group-ids your-id \
+--count 1 --instance-type t2.micro --key-name your-name-key \
+--query 'Instances[0].InstanceId'
+\end{verbatim}
+
+The \texttt{image-id} value determines what sort of virtual machine image your instance will be based upon.  The example value will give you an Ubuntu 14.04 image.
+
+When this command completes you will receive the instance id that you can use in the following command to get your instance's IP address.
+
+\begin{verbatim}
+aws ec2 describe-instances --instance-ids your-id \
+--query 'Reservations[0].Instances[0].PublicIpAddress'
+\end{verbatim}
+
+which you can use to log into your server with the command
+
+\begin{verbatim}
+ssh -i your-name-key.pem ubuntu@ip-address
+\end{verbatim}
+
+\section{Using help and shutting down}
+Finally, you need to stop your instance.  To find out how, use the command
+
+\begin{verbatim}
+aws ec2 help 
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+\end{document}
