@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{boto3: an AWS API Library\ IN720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+One of the interesting results of the proliferation of virtualisation is the practise of creating and managing virtual machines programatically. We saw this in the last lab where we used the Amazon supplied CLI tools. But we are not just limited to this. AWS exposes a remote API that we can use to create our own software tools.
+
+AWS exposes an HTTP driven API and we could interact directly with it, but it makes more sense to find libraries that let us work at a bit higher level. There are libraries available for many languages.  In this lab we will look at the Python library \emph{boto3}. This has already been installed on the server we used last time (10.25.1.55).
+
+Note that boto3 uses credentials that are stored at \texttt{\textasciitilde/.aws/credentials}. If you did lab 8.1, this credentials file has already been created.
+
+The tasks below are best performed inside an interactive Python session that you get by just running the command ``\texttt{python}''.
+
+\section{Starting and working withinstances}
+
+To do anything with EC2, we have to start by getting an EC2 resource:
+
+\begin{verbatim}
+  import boto3
+  ec2 = boto3.resource('ec2')
+\end{verbatim}
+
+Now we can start an instance with the command
+
+\begin{verbatim}
+  [i] = ec2.create_instances(ImageId='ami-83da9ce3', InstanceType='t1.micro', MinCount=1, MaxCount=1)
+\end{verbatim}
+  
+\texttt{create\_instances} returns a list of instance objects.  Since we're only getting one, the variable \texttt{i} refers to our instance.
+
+We can examine our instance by looking at its properties.  For example its IP address is given by 
+
+\texttt{i.public\_ip\_address}
+
+But the value we get back is \texttt{None}.  To see why, check \texttt{i.state}.  We see that it's \texttt{pending} since our instance is still launching.  Wait a minute and check \texttt{i.state} again. What happens?
+
+It turns out that our local instance object doesn't update itself with new information from AWS.  To update our instance data, call
+
+\texttt{i.load()}
+
+And now check \texttt{i}'s properties.  You can find a full list of instance properties and methods at \url{http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#instance}, along with complete \texttt{boto3} documentation.
+
+\newpage
+
+Experiment with your instance.  When you are done, call
+
+\begin{verbatim}
+  i.stop()
+  i.terminate()
+  \end{verbatim}
+  
+  To clean up.
+
+
+
+
+
+
+\end{document}
