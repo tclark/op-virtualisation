@@ -1,0 +1,19 @@
+You will write a program that uses the AWS API to create and manage an EC2 instance. You may write this in any language that has an AWS SDK, but it is recommended that you to this in Python using the boto3 library.
+
+Your program shall take one command line argument and will perform the following actions based on that argument:
+
+start: Your program shall create and start an EC2 instance in the us-west-1 availability zone satisfying the properties below, or simply start it if the instance already exists.
+
+Instance properties
+ image id: ami-31490d51
+ type: t2.nano
+ tag: Assign your instance a tag with name 'student' and set its value equal to your surname
+
+
+stop: Stop the instance identified by your tag.
+
+status: Print the state of your instance.
+
+terminate: Terminate the instance identified by your tag.
+
+

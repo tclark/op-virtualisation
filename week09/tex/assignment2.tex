@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Assignment 2: AWS API\\ IN720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+We have discussed how the widespread use of virtualisation means that servers have become things with which we interact via an API. In this assignment you will write a program that will create, start, stop, terminate, and report the status of an EC2 instance.
+
+AWS lets us assign \emph{tags} to instances, basically key-value text pairs. We will use a tags to identify our instances. Tag your instance with your surname.
+
+\section{Program specifications}
+Write a program that takes one command line argument and acts according to the following specifications:
+
+\begin{description}
+  \item{\texttt{start}} If an instance with your tag exists, your program shall start it.  If not, then create and run the instance. Create your instance in the \texttt{us-west-1} zone using the \texttt{ami-31490d51} image. Use a \texttt{t2.nano} insstance type.
+  
+  \item{\texttt{stop}} Your program shall stop the instance.
+  
+  \item{\texttt{status}} Your program shall report the instance's  \texttt{status} value.
+  
+  \item{\texttt{stop}} Your program shall stop the instance.
+  
+  \item{\texttt{terminate}} Your program shall terminate the instance.
+
+\end{description}
+
+\section{Submission and marking} 
+
+This assignment is worth 20\% of your course mark and it is due at the beginning of class on Tuesday, 11 October. Place your program files in a GitHub repository named \texttt{in720-assignment2}. It will be marked according to the following criteria:
+
+\begin{itemize}
+  \item Functional correctness (50 marks)
+  \item Code quality and origanisation (40 marks)
+  \item Sensible documentation and commenting (10 marks)
+  \end{itemize}
+  
+  Be sure that your files are pushed to your \texttt{master} branch on your GitHub repository on or before the dues date and time. 
+ 
+\end{document}
