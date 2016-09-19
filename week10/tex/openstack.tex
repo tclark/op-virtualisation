@@ -1,0 +1,91 @@
+% Beamer slide template prepared by Tom Clark <tom.clark@op.ac.nz>
+% Otago Polytechnic
+% Dec 2012
+
+\documentclass[10pt]{beamer}
+\usetheme{Dunedin}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\newcommand\codeHighlight[1]{\textcolor[rgb]{1,0,0}{\textbf{#1}}}
+
+\title{Introduction to OpenStack}
+
+\author[I720]{Virtualisation}
+\institute[Otago Polytechnic]{
+  Otago Polytechnic \\
+  Dunedin, New Zealand \\
+}
+\date{}
+\begin{document}
+
+%----------- titlepage ----------------------------------------------%
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Public clouds}
+  
+  We've looked at an example of a \emph{public cloud} service, AWS. Running operations on a public cloud is often an east and cost effective way to provide networked services.
+  
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Three main components}
+  
+  Recall the three main components of a cloud service:
+  
+  \begin{itemize}
+  \item Virtual \textbf{compute} service
+  \item Virtual \textbf{storage} service
+  \item Virtual \textbf{networking} service
+  \end{itemize}
+  
+  Along with these core services, a cloud service will typically implement other supporting services.
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cloud interfaces}
+  
+  Recall also that AWS provided three different interfaces:
+  
+  \begin{itemize}
+   \item A graphical web interface
+   \item A command-line interface
+   \item A remote API
+   \end{itemize}
+   
+   A private cloud interface may provide any combination of these (but probably needs at least one).
+\end{frame}
+
+\begin{frame}
+  \frametitle{A big task}
+  
+  The big thing to take away from all this is that building and running a private cloud is a \textbf{big} task. Do not choose to do so lightly.
+  \end{frame}
+  
+  \begin{frame}
+    
+    \includegraphics[scale=0.7]{cloud-cat.jpg}
+    
+  \end{frame}
+  
+  
+\begin{frame}
+  \frametitle{OpenStack}
+  
+  We're going to use OpenStack to run our cloud.
+  
+  \begin{itemize}
+    \item A FOSS platform for running cloud services
+    \item Really a large, modular collection of services
+    \item Project launched in 2010
+    \item Managed by the OpenStack Foundation
+  \end{itemize}
+    
+    
+\end{frame}
+
+\end{document}

@@ -1,0 +1,21 @@
+1. We spent some time looking at an example of a _public cloud_ service, AWS. Running operations on 
+a pulic cloud is an easy, cost-effective way to provide services.
+
+2. Recall the three main components of cloud services:
+  - Compute
+  - Storage
+  - Network
+
+3. Sometimes an organsation's needs are better met by running a _private cloud_ service. This means that you will need to supply the three service above, plus some other services for managing th ewhole thing.
+
+4. Also, recall that, with AWS we had web based and command line tools as well as a service API.  We may want to offer these in our private clouds.
+
+5. So the first big thing to take away is that setting up and running a private cloud is a lot of work.  Do not elect to do this lightly.
+
+(Insert cat meme)
+
+6. We're going to use OpenStack to run our privte cloud. It's open source, we don't have to pay heaps for licenses, and it's become pretty dominant in this area.
+
+7. Some background:  Began in 2010 as a joint project between Rackspace and NASA.
+
+
