@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[margin = 2.25cm]{geometry}
+\setlength\parindent{0pt}
+
+\begin{document}
+
+
+
+\title{Course Directive\\ID720 Virtualisation\\Semester Two, 2022}
+\date{}
+\maketitle
+
+\section*{Description}
+It has become the norm in IT operations to use virtual systems in a wide range of applications.  The original intention of this was to make efficient use of resources and this is still important.  However, we have also come to realise that virtual systems enable new kinds of deployment and operational practices that are changing the industry.
+
+In this paper we will learn about how to provide and consume virtual systems.
+
+\section*{Course Information}
+\begin{itemize}
+  \item 15 Credits
+  \item Prerequisite: IN719
+  \item Class meetings: \\Monday, 8:00 - 10:00, D202 \\Wednesday, 3:00 - 5:00, D202
+\end{itemize}
+
+\section*{Lecturer}
+\begin{tabular}{lr}
+
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  Tom Clark &    \\
+     Email: & \texttt{tom.clark@op.ac.nz} \\
+\end{tabular}
+
+\section*{Course Dates}
+\begin{tabular}{ll}
+Term 1 (11 weeks) & 18 July - 30 September \\
+Term 2 (5 weeks) & 17 October - 18 November \\
+\end{tabular}
+
+
+\section*{Resources}
+We are going to cover three main areas in this paper: running virtual machines (using Xen), hosted cloud services (using OpenStack), and containers (using Docker). For OpenStack we will mainly rely on documentation at \url{https://docs.catalystcloud.nz/} and API documentation at \url{https://docs.openstack.org/yoga/}. For we will also use the core documentation at \url{https://docs.docker.com/} and for Kubernetes we will refer to \url{https://kubernetes.io/docs/home/} .You will need to set up accounts on a few online services like GitHub, Docker Hub, and OpenStack, and Google Cloud.  We will deal with these as they come up in class. Lab documents, slides, and other material is available on Github at https://github.com/tclark/op-virtualisation.
+
+\newpage 
+
+\section*{Course Content and Schedule}
+This schedule is subject to change based on needs of the class.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|c|l|}
+\hline
+ Week & Week Start & \multicolumn{1}{c|}{Topics}             \\ \hline
+ 1    & 18 Jul     & Introduction, Xen                            \\ \hline
+ 2    & 25 Jul     & Xen         \\ \hline
+ 3    &  1 Aug     & Xen                                     \\ \hline
+ 4    &  8 Aug     & Xen                                     \\ \hline
+ 5    & 15 Aug     & Xen                                     \\ \hline
+ 6    & 22 Aug     & Hosted Cloud Services                   \\ \hline
+ 7    & 29 Aug     & Hosted Cloud Service                    \\ \hline
+ 8    &  5 Sep     & Hosted Cloud Services                   \\ \hline
+ 9    & 12 Sep     & Work Time                               \\ \hline
+ 10   & 19 Sep     & Containers                              \\ \hline
+ 11   & 26 Sep     & Virtualising Services                                 \\ \hline
+ H1   &  3 Oct     & Holiday                                 \\ \hline
+ H2   & 10 Oct     & Holiday                             \\ \hline
+ 12   & 17 Oct     & Kubernetes                              \\ \hline
+ 13   & 24 Oct     & Kubernetes                              \\ \hline
+ 14   & 31 Oct     & Kubernetes                              \\ \hline
+ 15   &  7 Nov     & Work Time                               \\ \hline
+ 16   & 14 Nov     & Revision and Exam                       \\ \hline
+\end{tabular}
+
+\section*{Assessment}
+
+Assessments are weighted as follows: \\
+\begin{tabular}{|l|c|}
+\hline
+Assessment                  &  Weighting \\ \hline
+Xen Project                 &  25\% \\ \hline
+OpenStack Project      &  20\% \\ \hline
+Kubernetes Project           &  25\% \\ \hline
+Theory Exam                 &  30\% \\ \hline
+\end{tabular}
+
+\section*{Criteria for Passing}
+You must receive and overall average mark of 50\% or higher to pass this paper.
+
+\newpage
+
+\section*{Course Requirements and Expectations}
+\subsection*{Attendance}
+This paper is composed of a mix of lectures and self-paced project work.  Attendance is at your discretion. 
+However, you are responsible for keeping up with events that take place in class and completing work on schedule. 
+
+\subsection*{Communication}
+Important announcements and discussions about the course, assessments, and scheduling may take place during class sessions.  It is your responsibility to be informed about them.  If you cannot attend a class session, be sure to check with another student.
+
+Your student email is an official communication channel. It is your responsibility to regularly check your student email for important course related material, including changes to class scheduling or assessment details. Not checking will not be accepted as an excuse.
+
+You can manage your email at the Student Hub and download the instructions for forwarding your email at http://www.op.ac.nz/students/student-hub/
+
+\subsection*{Proprietary software}
+Most of this class can be completed using free/open source software, but some labs may require the use of proprietary software.  In addition, lab machines use proprietary operating systems and applications.
+
+\subsection*{Polytechnic Closure}
+In the event that the Polytechnic is closed or has a delayed opening because of snow or bad weather, you should not attempt to attend class if it is unsafe to do so. It is possible that your instructor will not be able to attend either, so classes will not physically be meeting. However, this does not become a holiday. Rather, material will be available on the Cisco Academy web site covering the material for classes affected by the closure. You are responsible for any material presented in this manner. Information about closure will be posted on the Otago Polytechnic facebook page https://www.facebook.com/OtagoPoly.
+
+\subsection*{Group Work and Originality}
+Students in the Bachelor of Information Technology degree are expected to hand in original work.  Students are encouraged to discuss
+assignments with their fellow students.  However, all assignments are to be completed as individual works unless group work is explicitly involved.
+Failure to submit your own unique work will be treated as plagiarism.
+
+\subsection*{Referencing}
+Appropriate referencing is required for all work.  Referencing standards will be specified by your instructor.
+
+\subsection*{Plagiarism}
+Plagiarism is submitting someone else's work as your own.  Plagiarism offences are taken seriously and an
+assessment that has been plagiarised may be awarded a zero mark.  A definition of plagiarism is in the Student Handbook,
+available online or at the school office.
+
+\subsection*{Submission Requirements}
+All assignments are to be submitted by the time, date, and method given when the assignment is issued.
+
+\subsection*{Extensions}
+Extensions are only available for unusual circumstances.  These must be applied for, and approved, prior to the submission deadline.
+
+\subsection*{Impairment}
+In case of sickness contact your lecturer or year co-ordinator as soon as possible, preferably before the test or
+assignment is due.  The policy regarding the granting of a mark that considers impaired performance requires a medical
+certificate and a medical practitioners signature on a form. You may should refer to the guide on impaired performance
+on the student handbook.
+
+\subsection*{Appeals}
+If you are concerned about any aspect of your assessment, please approach the lecturer in the first instance.  We support
+an open door policy and aim to resolve issues promptly.  Further support is available from the Programme
+Manager and Head of School. Otago Polytechnic has a formal process for academic appeals if necessary.
+
+\subsection*{Other Documents}
+Regulatory documents relating this course can be found on the Polytechnic website.
+
+
+
+
+\subsection*{Special Resources and Requirements}
+If you have any special needs, whether they relate to the course material, the exercises, the assessment, or anything in the course -
+then \textit{please} let your instructor know as soon as possible.
+
+\end{document}
