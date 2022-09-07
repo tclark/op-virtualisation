@@ -126,7 +126,7 @@ From within your build context directory, build your new image with the command
 \section{Run a container}
 Once this completes successfully, you can run a container based on this image with the command 
 
-\texttt{docker run --name <your-username-lab8> -p 127.0.0.1:80:80XX your-username/lab8.2}
+\texttt{docker run --name <your-username-lab8> -p 127.0.0.1:80XX:80 your-username/lab8.2}
 
 The \texttt{-p} option maps the exposed port \texttt{80} on our container to port \texttt{80XX} on the loopback interface. Since we are sharing a host, select two random numbers to substitute for the ``\texttt{XX}'' that do not clash with other students' ports. You can see your web page with the command
 
