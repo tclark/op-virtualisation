@@ -86,12 +86,14 @@ RUN apt-get -yq install apache2
 \texttt{RUN} commands run their arguments as if they were entered into a shell inside the container.
 
 \begin{verbatim}
+ENV DEBIAN_FRONTEND=noninteractive
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/run/apache
 ENV APACHE_PID_FILE /var/run/apache/httpd.pid
-RUN mkdir /var/run/apache
+ENV APACHE_RUN_DIR /var/run/apache2
+RUN mkdir /var/run/apache2
 \end{verbatim}
 
 \texttt{ENV} commands populate environment variables inside the container with values. This is a common way to pass configuration information to services running inside them.
@@ -124,7 +126,7 @@ From within your build context directory, build your new image with the command
 \section{Run a container}
 Once this completes successfully, you can run a container based on this image with the command 
 
-\texttt{docker run --name <your-username-lab8> -p 127.0.0.1:80:80XX}
+\texttt{docker run --name <your-username-lab8> -p 127.0.0.1:80:80XX your-username/lab8.2}
 
 The \texttt{-p} option maps the exposed port \texttt{80} on our container to port \texttt{80XX} on the loopback interface. Since we are sharing a host, select two random numbers to substitute for the ``\texttt{XX}'' that do not clash with other students' ports. You can see your web page with the command
 
