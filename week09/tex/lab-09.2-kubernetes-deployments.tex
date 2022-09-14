@@ -96,7 +96,7 @@ Copy the manifest file \texttt{/home/ubuntu/flask-svc.yml} to your home director
 
 and see what external port has been assigned by entering the command
 \begin{verbatim}
-  microk8s.kubectl describe service flask-svc
+  microk8s.kubectl -n <namespace-name> describe service flask-svc
 \end{verbatim}
 
 and looking for the \texttt{NodePort} value. It should be a number over 30000.
