@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Lab 10.1: Google Kubernetes Engine\\ID720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+So far we have used microk8s to learn about using Kubernetes. It is a useful tool, but too limited for real application workloads. For that we need a full fledged cluster. We could build and maintain our own cluster, but that is a big job and not really cost effective for most organisations. Instead, we usually used Kubernetes services managed by service provider. In this and upcoming labs we will use Google Cloud Services and in particular, the \emph{Google Kubernetes Engine} (GKE).
+
+\section{Create Google Cloud Account}
+You will need to create a Google Cloud Services account at \url{https://cloud.google.com}. If you're creating a new account you'll be eligible ofr a free trial. In addition, you'll receive and additional account credit for participating in this paper. You will get an email about that credit later today.
+
+Note that you'll need a payment card for this account, but the card won't be charged, even after your trial runs out, unless you modify your account settings yourself to enable billing.
+
+
+\section{Create a project}
+Work in Google Cloud is organised into projects. Go to your Google Cloud console at \url{https://console.cloud.google.com/}. At the top, just to the right of the ``Google Cloud'' title there is a pull-down that opens a menu in which you can create and select projects. Start a new project named ``GKE Tutorial'' and be sure it's selected. Note your project id.
+
+\section{GKE}
+Expand the left side menu and select ``Kubernetes Engine''. You'll probably need to click the ``Enable API''. We will use the Cloud Shell to let us work with Kubernetes. It gives us a bash shell in the browser set up with \texttt{kubectl} and other tools. (There are CLI tools available that you can install on your computers as well.) Open the Cloud Shell by clicking on the shell prompt icon at the top right of the page.
+
+In the shell, check your region setting with the command
+
+\begin{verbatim}
+  curl metadata/computeMetadata/v1/instance/zone
+\end{verbatim}
+
+It's likely to be \texttt{asia-southeast-1}.
+
+Your shell with probably start with the GKE tutorial project active, but if not you can set it with the command
+
+\begin{verbatim}
+  gcloud config set project <PROJECT ID>
+\end{verbatim}
+
+\section{Do the tutorial}
+From here, just do Google's tutorial at \url{https://cloud.google.com/kubernetes-engine/docs/deploy-app-cluster}.
+
+Make note of a couple of things once you have deployed your tutorial application:
+
+\begin{itemize}
+  \item Look at the service you launched. Last time with talked about \texttt{ClusterIP} and \texttt{NodePort} services. This new service is of a different type. What do you think the relevant difference is?
+  \item In the GKE web console, review the Clusters, Workloads, and Service \& Ingress sections to see your running items.
+\end{itemize}
+
+Don't forget to do the ``Clean Up'' actions at the end of the tutorial!  
+
+
+
+
+\end{document}
