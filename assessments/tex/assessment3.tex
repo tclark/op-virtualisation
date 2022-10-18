@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Assignment 3: Kubernetes and DevOps \\ ID720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+For this assignment you will deploy a web application to a GKE Kubernetes cluster, along with its needed resources. You will deploy the application using a fully automated CI/CD pipeline to a staging cluster first, and then to a production cluster upon final approval.
+
+This assignment is worth 25\% of your mark in this paper.
+
+\section{Specifications}
+
+Create two k8s clusters: One for staging and one for production.
+
+Your application will use two deployments with an associated service for each:
+  \begin{enumerate}
+    \item A Flask application - clone the repo at \url{https://github.com/tclark/assignment3-app}. Your deployment should deploy two replicas of this pod. Expose this application with a load balancer.
+    \item A Redis server - use the standard image from Docker Hub. Expose this server internally with a Cluster IP.
+  \end{enumerate}
+    
+In addition you will create a ConfigMap with two key-value pairs, one fpr the Redis hostname and one for the Redis port number. 
+
+For the Flask application, create a CI/CD pipeline on GCP that builds and deploys to your staging cluster whenever a new commit is pushed, and that deploys to production on approval.
+
+After you deploy the full application stack, make a change to the Flask application code and push your changes to initiate a CI/CD rollout. For the assignment your pipeline logs should show \textbf{at least two} rollouts. 
+
+\section{Submission}
+Your assignment will be marked according to the following criteria:
+
+  \begin{itemize} 
+    \item The application should be accessible over the Internet and function properly.
+    \item All of the elements specified above should be present and configured correctly.
+    \item Demonstrate your CI/CD pipeline by rolling out at least one update to the Flask app after the initial deployment.
+  \end{itemize}   
+
+To submit your assignment, add \texttt{tclark@op.ac.nz} as a project editor on your GCP project. You may want to do this early so that I can check things should you have any questions while working on it. Once your project is completed, email the lecturer to let him know that it's ready.
+
+This assignment is due at 11:59 PM on Friday, 11 November.
+
+
+\end{document}
