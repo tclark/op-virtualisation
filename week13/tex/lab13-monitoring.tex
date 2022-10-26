@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Lab 13: Monitoring\\ID720 Virtualisation}
+\date{}
+\maketitle
+
+\section*{Introduction}
+As we move our applications into containers running in an environment like Kubernetes, we need some extra machinery to give us some visibility into our systems. \emph{Prometheus} is a typical tool for this.
+
+Note that this lab is an updated and simplified version of the tutorial found at \url{https://cloud.google.com/architecture/monitoring-apps-running-on-multiple-gke-clusters-using-prometheus-and-stackdriver} 
+
+\section{Setup}
+
+To begin, create a project called ``lab13'' in GCP, and be sure that GKE and monitoring are enabled for this project.
+
+Clone the files needed for this lab from \url{https://github.com/tclark/lab13-files} into your cloud shell.
+
+In your cloud shell, you will need to install \emph{Helm}, a package manager for Kubernetes app. Do this by checking \url{https://helm.sh/docs/intro/install/} and following the directions for installing with Apt.
+
+Launch a cluster:
+
+\begin{verbatim}
+  gcloud container clusters create lab13 \
+  --zone us-west2-a \
+  --num-nodes 3 \
+  --machine-type n1-standard-2
+\end{verbatim}
+
+\section{Create Service Account}
+You will need a service account with permissions to write data to the GCP monitoring service. Create the account with 
+
+\begin{verbatim}
+ gcloud iam service-accounts create prometheus --display-name prometheus-service-account
+\end{verbatim}
+
+and then save some values in environment variables
+
+\begin{verbatim}
+ export PROJECT_ID=$(gcloud info --format='value(config.project)')
+ 
+ export PROMETHEUS_SA_EMAIL=$(gcloud iam service-accounts list \
+    --filter="displayName:prometheus-service-account" \
+    --format='value(email)')
+\end{verbatim}
+
+and finally give the service account a role to write metrics data
+
+\begin{verbatim}
+  gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --role roles/monitoring.metricWriter \
+  --member serviceAccount:${PROMETHEUS_SA_EMAIL}
+\end{verbatim}
+
+\section{Install Prometheus}
+Be sure to \texttt{cd} into the \texttt{lab13-files} directory.
+
+Create a namespace for the prometheus resources
+
+\begin{verbatim}
+  kubectl create namespace prometheus
+\end{verbatim}  
+
+Create a Kubernetes service account associated with the service account you created above.
+
+\begin{verbatim}
+  kubectl apply -f prometheus-service-account.yaml
+\end{verbatim}
+
+  
+Load the configMap that will supply configuration to the Prometheus server.
+
+\begin{verbatim}
+  kubectl apply -f prometheus-service-account.yaml
+\end{verbatim}
+
+Set up some environment variables that we will apply to the Prometheus deployment.
+
+\begin{verbatim}
+ export KUBE_NAMESPACE=prometheus
+ export KUBE_CLUSTER=lab13
+ export GCP_LOCATION=us-west2-a
+ export GCP_PROJECT=$(gcloud info --format='value(config.project)')
+ export DATA_DIR=/prometheus
+ export DATA_VOLUME=prometheus-storage-volume
+ export SIDECAR_IMAGE_TAG=0.8.2
+ export PROMETHEUS_VER_TAG=v2.19.3
+\end{verbatim} 
+
+Now we combine these values into our deployment config and apply it.
+
+\begin{verbatim}
+  envsubst < gke-prometheus-deployment.yaml | kubectl apply -f -
+\end{verbatim}
+
+After a few minutes, verify that the Prometheus deployment is ready.
+
+\begin{verbatim}
+  kubectl get pods -n prometheus
+\end{verbatim}
+
+\section{Check the Prometheus UI}
+Prometheus' role is to collect data from targets in our cluster and store the data in a time series database. We'll use that data to populate our dashboard later. First let's inspect Prometheus' web UI.
+
+Set up port forwarding.
+\begin{verbatim}
+  export PROMETHEUS_POD_GKE=$(kubectl get pods \
+  --namespace prometheus -l "app=prometheus-server" \
+    -o jsonpath="{.items[0].metadata.name}")
+    
+  kubectl --context gke port-forward --namespace prometheus\
+  $PROMETHEUS_POD_GKE 9090:9090 >> /dev/null &
+\end{verbatim}
+
+In cloud shell, click web preview > change port and enter 9090 for the new port number. Click ``Change and preview''. You should see the Prometheus web UI. In it, click Status > Service Discovery to see the services that Prometheus has found.
+
+\section{Install Postgres}
+We will use Postgresql to give us something interesting to monitor. We will install it with Helm.
+
+First, add a repository and update Helm.
+\begin{verbatim}
+  helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo update
+\end{verbatim}
+
+Next, install Postgres.
+\begin{verbatim}
+  helm install pg bitnami/postgresql \
+  --set metrics.enabled=true \
+  --set postgresqlDatabase=prometheusdb \
+  --set auth.database=labdb 
+\end{verbatim}
+
+Finally, prepare the database for later testing.
+
+\begin{verbatim}
+# get the pg password from a k8s secret
+export POSTGRES_PASSWORD=$(kubectl get secret pg-postgresql -o 
+jsonpath="{.data.postgres-password}" | base64 --decode)
+
+# port-forward the database
+kubectl --context gke port-forward \
+svc/gke-postgresql 5432:5432 >> /dev/null &
+
+# log into the database
+ PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -p 5432 -U postgres 
+
+# in psql, create a database
+CREATE DATABASE promtest
+\end{verbatim}
+
+\section{Create a Monitoring Dashboard}
+In the cloud console, select Monitoring from the main menu (you'll have to scroll down a bit). Once it's loaded, choose the Metrics explorer.
+
+\begin{enumerate}
+  \item In the Find resource type and metric field, enter
+  \texttt{pg\_stat\_database\_blks\_read}.
+  \item Select the metric that starts with 
+  \texttt{external.googleapis.com/prometheus/}
+  \item For the resource, select Kubernetes Container
+  \item In the Group By drop-down list, select \texttt{cluster\_name}.
+  \item For Aggregator, select \texttt{sum}.
+  \item Click Save Chart. Name the chart.
+  \item In the Dashboard drop-down list, select New Dashboard.
+  Enter the dashboard name Postgres and click Save.
+  \item Click the Dashboards link, and then click the PostgreSQL dashboard.
+\end{enumerate}
+
+You should see a dashboard that plots a graph with our Postgres metric.
+
+\section{Generate Postgres Traffic}
+Use the tool \texttt{pgbench} to generate traffic on the database. Install it, if necessary, by installing the \texttt{postgresql-contrib} package.
+
+In your cloud shell initialise the database with 
+
+\begin{verbatim}
+  PGPASSWORD="$POSTGRES_PASSWORD" pgbench -i \
+  -h localhost -p 5431 -U postgres -d promtest
+\end{verbatim}
+
+And then run the following test, which will run for ten minutes.
+\begin{verbatim}
+  PGPASSWORD="$POSTGRES_PASSWORD" pgbench -c 10 -T 600 \
+  -h localhost -p 5431 -U postgres -d promtest
+\end{verbatim}
+
+While this is running, check the monitoring dashboard. You should see the load from the test on the graph. Toggle auto-refresh on so that the graph will refresh.
+
+\section{Clean up}
+This lab uses a number of billable resources, so be sure to remove everything after you finish. The easiest way to do this is to delete the entire lab13 project.
+ 
+\end{document}
