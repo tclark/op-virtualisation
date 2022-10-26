@@ -83,7 +83,7 @@ Create a Kubernetes service account associated with the service account you crea
 Load the configMap that will supply configuration to the Prometheus server.
 
 \begin{verbatim}
-  kubectl apply -f prometheus-service-account.yaml
+  kubectl apply -f prometheus-configmap.yaml
 \end{verbatim}
 
 Set up some environment variables that we will apply to the Prometheus deployment.
@@ -120,7 +120,7 @@ Set up port forwarding.
   --namespace prometheus -l "app=prometheus-server" \
     -o jsonpath="{.items[0].metadata.name}")
     
-  kubectl --context gke port-forward --namespace prometheus\
+  kubectl  port-forward --namespace prometheus \
   $PROMETHEUS_POD_GKE 9090:9090 >> /dev/null &
 \end{verbatim}
 
