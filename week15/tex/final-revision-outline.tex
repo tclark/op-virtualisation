@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\usepackage{inconsolata}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage[margin = 2.2cm]{geometry}
+
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\title{Final Exam Outline \\ ID720 Virtualisation}
+\date{\today}
+\maketitle
+
+\section*{Introduction}
+The final exam for this semester will be on Wednesday, 16 November at 3:00 PM. The exam will comprise about 25 short answer questions covering a range of topics from the semester.
+
+The exam \textbf{will not} include questions that require you to write code of configuration from scratch, although it may include samples of code or configuration with questions about them.
+
+\section*{Outline}
+Exam questions will be based on the topics below.
+
+\begin{enumerate}
+  \item Hypervisors and virtual machines
+    \begin{itemize}
+      \item Hypervisors - hosted, bare metal
+      \item Virtualisation types - full, paravirtualisation
+      \item VM images
+      \item VM instances or guests
+      \item Volumes
+      \item Networking types - bridged, routed, NAT
+      \item Role of Dom 0
+      \item Driver domains
+    \end{itemize}
+  \item Managed cloud services
+    \begin{itemize}
+      \item Advantages of managed services
+      \item Reasons to not use managed services
+      \item Images, instances, volumes
+      \item Floating IP addresses
+      \item OpenStack SDK
+      \item Terraform
+    \end{itemize}
+    \pagebreak
+  \item Containers and Kubernetes
+    \begin{itemize}
+      \item Containers, differences between containers and "real" VMs
+      \item Container repositories
+      \item High level Kubernetes architecture
+      \item Pods, deployments
+      \item Services, types of services
+      \item ConfigMaps, Secrets
+      \item CI/CD pipelines
+      \item Monitoring, Prometheus
+    \end{itemize}
+
+\end{enumerate}
+
+\end{document}
